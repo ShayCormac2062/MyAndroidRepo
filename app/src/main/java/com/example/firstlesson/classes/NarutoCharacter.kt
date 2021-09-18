@@ -1,9 +1,8 @@
 package com.example.firstlesson.classes
 
-import android.widget.Toast
-import com.example.firstlesson.MainActivity
-
-open class NarutoCharacter(val name: String, var age: Int, var village: String) {
+open class NarutoCharacter(val name: String,
+                           var age: Int,
+                           var village: String) {
 
     fun wordParasite() {
         val words: Array<String> = arrayOf("Dattebayo!", "Dattebane!", "Dattebasa")

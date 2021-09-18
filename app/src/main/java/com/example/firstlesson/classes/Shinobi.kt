@@ -3,7 +3,8 @@ package com.example.firstlesson.classes
 import com.example.firstlesson.interfaces.Anbu
 
 class Shinobi(
-    private var nameOfShinobi: String, private var ageOfShinobi: Int,
+    private var nameOfShinobi: String,
+    private var ageOfShinobi: Int,
     private var villageOfShinobi: String,
     var amountOfTechnics: Int,
     var favoriteTechnic: String
@@ -18,9 +19,11 @@ class Shinobi(
     }
 
     fun leaveVillage() {
-        println("Я покидаю деревню...")
-        amountOfTechnics = 0
-        favoriteTechnic = "Отсутствует"
+        if (nameOfShinobi != "Наруто") {
+            println("Я покидаю деревню...")
+            amountOfTechnics = 0
+            favoriteTechnic = "Отсутствует"
+        }
         println("Проверка 2-го метода класса \"Шиноби\" прошла успешно!")
     }
 

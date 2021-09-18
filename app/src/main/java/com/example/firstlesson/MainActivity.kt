@@ -16,10 +16,13 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding?.root)
         val shinobi = Shinobi("Наруто", 35,
-            "Деревня скрытого тумана", 89, "Рассенган")
+            "Деревня скрытого листа", 89, "Рассенган")
         val hidan = AkatsukiMember("Хидан", 25,
-            "Отсутствует", null, 200)
-        Toast.makeText(this, "Были запущены 2 класса, наследуемых от одного общего класса, " +
+            "Деревня скрытых горячих источников", null, 200)
+        checkShinobi(shinobi)
+        checkAkatsuki(hidan)
+        Toast.makeText(this, "Были запущены 2 класса, " +
+                "наследуемых от одного общего класса, " +
                 "и каждый наследуется от своего интерфейса. Для " +
                 "просмотра деталей загляните в логи)", Toast.LENGTH_LONG).show()
         homework1(shinobi, hidan)
@@ -32,7 +35,6 @@ class MainActivity : AppCompatActivity() {
                 "Был создан экземпляр класса \"Шиноби\", посмотрите его поведение в логах",
                 Toast.LENGTH_SHORT).show()
         }
-
         binding?.checkAkatsuki?.setOnClickListener {
             checkAkatsuki(akatsuki)
             Toast.makeText(this,

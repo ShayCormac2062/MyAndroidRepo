@@ -2,7 +2,8 @@ package com.example.firstlesson.classes
 
 import com.example.firstlesson.interfaces.JinchurikiHunter
 
-class AkatsukiMember(private var nameOfMember: String, private var ageOfMember: Int,
+class AkatsukiMember(private var nameOfMember: String,
+                     private var ageOfMember: Int,
                      private var villageOfMember: String,
                      private var partner: AkatsukiMember?,
                      private var amountOfDeaths: Int
