@@ -32,7 +32,7 @@ class CharacterListFragment: Fragment() {
             adapter = CharacterAdapter().apply {
                 clickListener = {
                     parentFragmentManager.beginTransaction()
-                        .replace(R.id.container, CharacterInfoFragment(it))
+                        .replace(R.id.container, CharacterInfoFragment(it.id))
                         .addToBackStack(null)
                         .commit()
                 }
