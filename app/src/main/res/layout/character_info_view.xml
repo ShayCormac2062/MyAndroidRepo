@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/green">
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/character_photo"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="20dp"
+        android:src="@drawable/ic_launcher_background"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/character_name"
+        android:layout_width="220dp"
+        android:layout_height="150dp"
+        android:gravity="center"
+        android:paddingHorizontal="10dp"
+        android:text="Название персонажа"
+        android:textStyle="italic"
+        android:textSize="25sp"
+        android:textColor="@color/green_dark"
+        app:layout_constraintBottom_toBottomOf="@+id/character_photo"
+        app:layout_constraintStart_toEndOf="@+id/character_photo"
+        app:layout_constraintTop_toTopOf="@+id/character_photo" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="600dp"
+        app:layout_constraintTop_toBottomOf="@+id/character_photo"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/character_description"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="Описание персонажа"
+                android:paddingHorizontal="18dp"
+                android:textSize="22sp"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </ScrollView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
