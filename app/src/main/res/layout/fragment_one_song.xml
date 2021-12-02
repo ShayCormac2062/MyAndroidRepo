@@ -1,79 +1,98 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@drawable/music_player_gradient"
     tools:context=".ui.fragment.OneSongFragment">
 
     <ImageView
         android:id="@+id/track_cover"
-        android:layout_width="285dp"
-        android:layout_height="285dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        android:scaleType="fitXY"
-        app:layout_constraintVertical_bias=".3"/>
+        style="@style/all_constraint_to_parent"
+        android:layout_width="250dp"
+        android:layout_height="250dp"
+        app:layout_constraintVertical_bias=".25"
+        tools:ignore="MissingConstraints" />
 
     <TextView
         android:id="@+id/track_name"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@+id/track_cover"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="40dp"
+        style="@style/titles_of_track"
+        android:layout_marginTop="20dp"
         android:text="Название песни"
+        android:textColor="@color/white"
         android:textSize="23sp"
-        android:textColor="@color/white"/>
+        app:layout_constraintTop_toBottomOf="@+id/track_cover"
+        tools:ignore="MissingConstraints" />
 
     <TextView
         android:id="@+id/track_author"
+        style="@style/titles_of_track"
+        android:layout_marginTop="10dp"
+        android:text="Автор песни"
+        android:textColor="#787878"
+        android:textSize="18sp"
+        app:layout_constraintTop_toBottomOf="@+id/track_name"
+        tools:ignore="MissingConstraints" />
+
+    <TextView
+        android:id="@+id/track_time"
+        style="@style/track_controller"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@+id/track_name"
+        android:layout_marginStart="6dp"
+        android:text="00:00"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="15dp"
-        android:text="Автор песни"
-        android:textSize="18sp"
-        android:textColor="#787878"/>
+        android:textColor="@color/white"
+        android:textSize="17sp"
+        tools:ignore="MissingConstraints" />
 
-        <ImageButton
-            android:id="@+id/previous_track"
-            android:layout_width="70dp"
-            android:layout_height="70dp"
-            android:background="@drawable/previous"
-            android:scaleType="fitXY"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/track_author"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/resume_track"/>
+    <SeekBar
+        android:id="@+id/seek_bar"
+        style="@style/track_controller"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:outlineAmbientShadowColor="@color/pinky_dark"
+        android:outlineSpotShadowColor="@color/pinky_light"
+        android:layout_marginHorizontal="50dp"
+        tools:ignore="MissingConstraints" />
+
+    <TextView
+        android:id="@+id/track_duration"
+        style="@style/track_controller"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="6dp"
+        android:text="00:00"
+        android:textColor="@color/white"
+        android:textSize="17sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        tools:ignore="MissingConstraints" />
+
+    <ImageButton
+        android:id="@+id/previous_track"
+        style="@style/buttons_of_player"
+        android:background="@drawable/previous"
+        app:layout_constraintEnd_toStartOf="@+id/resume_track"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/track_author" />
 
     <ImageButton
         android:id="@+id/resume_track"
-        android:layout_width="70dp"
-        android:layout_height="70dp"
+        style="@style/buttons_of_player"
         android:background="@drawable/pause"
-        android:scaleType="fitXY"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/next_track"
         app:layout_constraintStart_toEndOf="@+id/previous_track"
-        app:layout_constraintTop_toBottomOf="@id/track_author"
-        app:layout_constraintEnd_toStartOf="@+id/next_track"/>
+        app:layout_constraintTop_toBottomOf="@id/track_author" />
 
     <ImageButton
         android:id="@+id/next_track"
-        android:layout_width="70dp"
-        android:layout_height="70dp"
+        style="@style/buttons_of_player"
         android:background="@drawable/next"
-        android:scaleType="fitXY"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/resume_track"
-        app:layout_constraintTop_toBottomOf="@id/track_author"
-        app:layout_constraintEnd_toEndOf="parent"/>
+        app:layout_constraintTop_toBottomOf="@id/track_author" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

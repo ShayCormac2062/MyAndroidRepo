@@ -11,15 +11,16 @@
         <entry key="..\:/Users/Bashir/AndroidStudioProjects/MyAndroidRepo/app/src/main/res/drawable/list2.xml" value="0.1" />
         <entry key="..\:/Users/Bashir/AndroidStudioProjects/MyAndroidRepo/app/src/main/res/drawable/music_player_gradient.xml" value="0.18333333333333332" />
         <entry key="..\:/Users/Bashir/AndroidStudioProjects/MyAndroidRepo/app/src/main/res/drawable/zaglushka.xml" value="0.14536082474226805" />
+        <entry key="..\:/Users/Bashir/AndroidStudioProjects/MyAndroidRepo/app/src/main/res/layout-land/fragment_one_song.xml" value="0.1375" />
         <entry key="..\:/Users/Bashir/AndroidStudioProjects/MyAndroidRepo/app/src/main/res/layout/activity_main.xml" value="0.2" />
         <entry key="..\:/Users/Bashir/AndroidStudioProjects/MyAndroidRepo/app/src/main/res/layout/activity_wake_up.xml" value="0.20416666666666666" />
         <entry key="..\:/Users/Bashir/AndroidStudioProjects/MyAndroidRepo/app/src/main/res/layout/create_element_dialog.xml" value="0.25" />
         <entry key="..\:/Users/Bashir/AndroidStudioProjects/MyAndroidRepo/app/src/main/res/layout/element_view.xml" value="0.16" />
-        <entry key="..\:/Users/Bashir/AndroidStudioProjects/MyAndroidRepo/app/src/main/res/layout/fragment_all_songs.xml" value="0.20416666666666666" />
+        <entry key="..\:/Users/Bashir/AndroidStudioProjects/MyAndroidRepo/app/src/main/res/layout/fragment_all_songs.xml" value="0.16" />
         <entry key="..\:/Users/Bashir/AndroidStudioProjects/MyAndroidRepo/app/src/main/res/layout/fragment_create_alarm.xml" value="0.20416666666666666" />
         <entry key="..\:/Users/Bashir/AndroidStudioProjects/MyAndroidRepo/app/src/main/res/layout/fragment_first.xml" value="0.1361111111111111" />
         <entry key="..\:/Users/Bashir/AndroidStudioProjects/MyAndroidRepo/app/src/main/res/layout/fragment_hello.xml" value="0.16" />
-        <entry key="..\:/Users/Bashir/AndroidStudioProjects/MyAndroidRepo/app/src/main/res/layout/fragment_one_song.xml" value="0.18" />
+        <entry key="..\:/Users/Bashir/AndroidStudioProjects/MyAndroidRepo/app/src/main/res/layout/fragment_one_song.xml" value="0.14" />
         <entry key="..\:/Users/Bashir/AndroidStudioProjects/MyAndroidRepo/app/src/main/res/layout/fragment_second.xml" value="0.14" />
         <entry key="..\:/Users/Bashir/AndroidStudioProjects/MyAndroidRepo/app/src/main/res/layout/fragment_third.xml" value="0.1361111111111111" />
         <entry key="..\:/Users/Bashir/AndroidStudioProjects/MyAndroidRepo/app/src/main/res/layout/one_track_element.xml" value="0.22" />

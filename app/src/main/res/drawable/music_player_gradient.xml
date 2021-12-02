@@ -4,5 +4,5 @@
         android:startColor="@color/pinky_dark"
         android:centerColor="@color/pinky_neutral"
         android:endColor="@color/pinky_light"
-        android:angle="70"/>
+        android:angle="45"/>
 </shape>

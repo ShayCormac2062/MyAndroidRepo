@@ -13,6 +13,7 @@ import androidx.media.app.NotificationCompat.MediaStyle as NotificationCompatMed
 import com.example.firstlesson.R
 import com.example.firstlesson.entity.TracksRepository
 import com.example.firstlesson.service.MusicService
+import com.example.firstlesson.ui.MainActivity
 import com.example.firstlesson.ui.fragment.OneSongFragment
 
 
@@ -58,10 +59,19 @@ class MyNotification(private val context: Context) {
     }
 
     fun build(trackId: Int) {
+        val notificationIntent = PendingIntent.getActivity(
+            context,
+            0,
+            Intent(context, MainActivity::class.java).also {
+                it.putExtra("TRACK", trackId)
+            },
+            PendingIntent.FLAG_UPDATE_CURRENT
+        )
         val track = TracksRepository.songList[trackId]
         val cover = BitmapFactory.decodeResource(context.resources, track.cover)
         val builder = nBuilder
             .setContentTitle(track.name ?: "Название не указано")
+            .setContentIntent(notificationIntent)
             .setContentText(track.author ?: "Автор неизвестен")
             .setStyle(NotificationCompatMediaStyle())
             .setLargeIcon(cover)

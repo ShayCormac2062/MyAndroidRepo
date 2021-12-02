@@ -6,6 +6,7 @@
     android:background="@drawable/music_player_gradient"
     tools:context=".ui.fragment.AllSongsFragment">
 
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/songs"
         android:layout_width="match_parent"
