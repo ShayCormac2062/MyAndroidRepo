@@ -54,7 +54,7 @@ class MyNotification(private val context: Context) {
             .setSmallIcon(R.drawable.resume)
             .setAutoCancel(true)
             .addAction(R.drawable.previous, "Previous", previousPendingIntent)
-            .addAction(R.drawable.pause, "PauseOrResume", resumePendingIntent)
+            .addAction(R.drawable.abstract_icon, "PauseOrResume", resumePendingIntent)
             .addAction(R.drawable.next, "Next", nextPendingIntent)
     }
 

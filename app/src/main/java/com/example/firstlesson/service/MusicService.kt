@@ -16,7 +16,13 @@ class MusicService : Service() {
     var currentTrackId: Int = 0
 
     inner class MusicBinder : Binder() {
+
         fun getService(): MusicService = this@MusicService
+        fun setSong(foo: Boolean) = this@MusicService.setSong(foo)
+        fun play(track: Track) = this@MusicService.play(track)
+        fun pauseOrResume(): Int = this@MusicService.pauseOrResume()
+        fun stop() = this@MusicService.stop()
+
     }
 
     override fun onCreate() {
@@ -49,7 +55,7 @@ class MusicService : Service() {
         }
     }
 
-    fun setSong(foo: Boolean) {
+    private fun setSong(foo: Boolean) {
         val x = changeTrack(foo, tracks[currentTrackId]).id
         stop()
         MyNotification(this).apply {
@@ -59,7 +65,7 @@ class MusicService : Service() {
         play(tracks[x])
     }
 
-    fun play(track: Track) {
+    private fun play(track: Track) {
         mediaPlayer = MediaPlayer.create(
             this,
             track.music
@@ -68,7 +74,7 @@ class MusicService : Service() {
         }
     }
 
-    fun pauseOrResume(): Int {
+    private fun pauseOrResume(): Int {
         return if (mediaPlayer.isPlaying) {
             mediaPlayer.pause()
             1
@@ -78,10 +84,15 @@ class MusicService : Service() {
         }
     }
 
-    fun stop() {
+    private fun stop() {
         with(mediaPlayer) {
             stop()
             release()
         }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        mediaPlayer.release()
     }
 }

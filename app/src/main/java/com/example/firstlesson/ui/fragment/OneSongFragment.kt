@@ -26,10 +26,11 @@ class OneSongFragment(private var track: Track) : Fragment() {
     private val updater: Runnable = Runnable {
         functionToUpdateSeekBar()
     }
-    private var musicService: MusicService? = null
+    private var musicService: MusicService.MusicBinder? = null
     private var connection = object : ServiceConnection {
         override fun onServiceConnected(name: ComponentName?, service: IBinder?) {
-            musicService = (service as? MusicService.MusicBinder)?.getService().also {
+            musicService = (service as? MusicService.MusicBinder)
+            musicService?.getService().also {
                 context?.let { context ->
                     activity?.intent?.removeExtra("TRACK")
                     MyNotification(context).apply {
@@ -37,8 +38,11 @@ class OneSongFragment(private var track: Track) : Fragment() {
                     }
                 }
                 if (track.id != it?.currentTrackId) {
-                    if (it?.mediaPlayer?.isPlaying == true) it.stop()
-                    it?.play(track)
+                    if (it?.mediaPlayer?.isPlaying == true) musicService?.stop()
+                        musicService?.play(track)
+                }
+                it?.mediaPlayer?.let { it1 ->
+                    binding.trackDuration.text = millisecondsToTimer(it1.duration)
                 }
                 it?.currentTrackId = track.id
             }
@@ -59,9 +63,9 @@ class OneSongFragment(private var track: Track) : Fragment() {
     override fun onResume() {
         super.onResume()
         musicService?.let {
-            track = TracksRepository.songList[it.currentTrackId]
+            track = TracksRepository.songList[it.getService().currentTrackId]
             drawScreen()
-            updateSeekBar(it.mediaPlayer)
+            updateSeekBar(it.getService().mediaPlayer)
         }
         initService()
     }
@@ -72,9 +76,9 @@ class OneSongFragment(private var track: Track) : Fragment() {
                 max = 100
                 setOnTouchListener { _, _ ->
                     val playPosition =
-                        (musicService?.mediaPlayer?.duration?.div(100))?.times(this.progress)
+                        (musicService?.getService()?.mediaPlayer?.duration?.div(100))?.times(this.progress)
                     playPosition?.let {
-                        musicService?.mediaPlayer?.seekTo(it)
+                        musicService?.getService()?.mediaPlayer?.seekTo(it)
                         trackTime.text = millisecondsToTimer(it)
                     }
                     false
@@ -107,14 +111,13 @@ class OneSongFragment(private var track: Track) : Fragment() {
         handler.removeCallbacks(updater)
         musicService?.let {
             it.setSong(foo)
-            track = TracksRepository.songList[it.currentTrackId]
+            track = TracksRepository.songList[it.getService().currentTrackId]
         }
         drawScreen()
     }
 
     private fun functionToUpdateSeekBar() {
-        musicService?.mediaPlayer?.let {
-            binding.trackDuration.text = millisecondsToTimer(it.duration)
+        musicService?.getService()?.mediaPlayer?.let {
             updateSeekBar(it)
         }
     }
@@ -123,7 +126,7 @@ class OneSongFragment(private var track: Track) : Fragment() {
         with(binding) {
             trackName.text = track.name ?: "Название не указано"
             trackAuthor.text = track.author ?: "Автор неизвестен"
-            if (musicService?.mediaPlayer?.isPlaying == false) {
+            if (musicService?.getService()?.mediaPlayer?.isPlaying == false) {
                 resumeTrack.setBackgroundResource(R.drawable.resume)
             } else {
                 resumeTrack.setBackgroundResource(R.drawable.pause)
@@ -131,7 +134,10 @@ class OneSongFragment(private var track: Track) : Fragment() {
             track.cover.let {
                 trackCover.setImageResource(it)
             }
-            functionToUpdateSeekBar()
+            musicService?.getService()?.mediaPlayer?.let { it1 ->
+                binding.trackDuration.text = millisecondsToTimer(it1.duration)
+                updateSeekBar(it1)
+            }
         }
     }
 
