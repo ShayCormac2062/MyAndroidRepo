@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">Мой репо с домашкой</string>
+    <string name="choose_time">Выбрать время для будильника</string>
+    <string name="delete_time">Отключить будильник</string>
+    <string name="wake_up">Вы проснулись!!!</string>
+    <string name="no_selected_time">Время не назначено</string>
+    <string name="run_time">Запустить будильник</string>
 </resources>
