@@ -13,7 +13,7 @@ class MusicService : Service() {
 
     lateinit var mediaPlayer: MediaPlayer
     private val tracks = TracksRepository.songList
-    var currentTrackId: Int = 0
+    var currentTrackId: Int = -1
 
     inner class MusicBinder : Binder() {
 
