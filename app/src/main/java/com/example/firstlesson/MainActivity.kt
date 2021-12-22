@@ -5,9 +5,9 @@ import android.annotation.SuppressLint
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Build
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import com.example.firstlesson.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
@@ -51,7 +51,7 @@ class MainActivity : AppCompatActivity() {
         permissions: Array<out String>,
         grantResults: IntArray
     ) {
-        when(requestCode) {
+        when (requestCode) {
             ALLOWING_CODE -> {
                 if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     selectImageFromGallery()
@@ -64,9 +64,11 @@ class MainActivity : AppCompatActivity() {
 
     @SuppressLint("MissingSuperCall")
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        val intent: Intent = Intent(this@MainActivity, SecondActivity::class.java)
-            intent.putExtra("URI", data?.data)
-            intent.putExtra("StringURI", data?.data.toString())
+        intent = Intent(this@MainActivity, SecondActivity::class.java).apply {
+            action = Intent.ACTION_PICK
+            putExtra("URI", data?.data)
+            putExtra("StringURI", data?.data.toString())
+        }
         startActivity(intent)
     }
 

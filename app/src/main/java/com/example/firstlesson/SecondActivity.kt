@@ -17,12 +17,13 @@ class SecondActivity : AppCompatActivity() {
         startWork()
     }
 
-    fun startWork() {
-        binding.photo.setImageURI(intent.getParcelableExtra("URI"))
-        binding.path.text = intent.getStringExtra("StringURI")
+    private fun startWork() {
+        binding.photo.setImageURI(intent?.data)
+        binding.path.text = intent?.data.toString()
         Snackbar.make(binding.root, "Было получено фото из галереи", 2000).show()
         binding.returnBtn.setOnClickListener {
             startActivity(Intent(this@SecondActivity, MainActivity::class.java))
         }
     }
+
 }
