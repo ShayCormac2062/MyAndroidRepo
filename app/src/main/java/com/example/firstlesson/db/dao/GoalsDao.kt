@@ -17,29 +17,29 @@ interface GoalsDao {
     }
 
     @Query("SELECT * FROM goals")
-    fun getAll(): List<Goal>
+    suspend fun getAll(): List<Goal>
 
     @Insert
-    fun add(goal: Goal)
+    suspend fun add(goal: Goal)
 
     @Query("UPDATE goals SET title=:title WHERE (id=:id)")
-    fun updateTitle(id: Int, title: String?)
+    suspend fun updateTitle(id: Int, title: String?)
 
     @Query("UPDATE goals SET description=:description WHERE (id=:id)")
-    fun updateDescription(id: Int, description: String?)
+    suspend fun updateDescription(id: Int, description: String?)
     
     @Query("UPDATE goals SET date=:date WHERE (id=:id)")
-    fun updateDate(id: Int, date: Date?)
+    suspend fun updateDate(id: Int, date: Date?)
 
     @Query("UPDATE goals SET latitude=:latitude WHERE (id=:id)")
-    fun updateLatitude(id: Int, latitude: Double?)
+    suspend fun updateLatitude(id: Int, latitude: Double?)
 
     @Query("UPDATE goals SET longitude=:longitude WHERE (id=:id)")
-    fun updateLongitude(id: Int, longitude: Double?)
+    suspend fun updateLongitude(id: Int, longitude: Double?)
 
     @Query("DELETE FROM goals WHERE id=:goal")
-    fun deleteGoal(goal: Int)
+    suspend fun deleteGoal(goal: Int)
 
     @Query("DELETE FROM goals")
-    fun deleteAll()
+    suspend fun deleteAll()
 }

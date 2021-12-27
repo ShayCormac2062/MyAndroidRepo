@@ -3,12 +3,26 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="..\:/Users/Bashir/AndroidStudioProjects/MyAndroidRepo/app/src/main/res/drawable/trash.xml" value="0.12777777777777777" />
-        <entry key="..\:/Users/Bashir/AndroidStudioProjects/MyAndroidRepo/app/src/main/res/layout/activity_main.xml" value="0.1" />
-        <entry key="..\:/Users/Bashir/AndroidStudioProjects/MyAndroidRepo/app/src/main/res/layout/fragment_all_goals.xml" value="0.12" />
-        <entry key="..\:/Users/Bashir/AndroidStudioProjects/MyAndroidRepo/app/src/main/res/layout/fragment_create_goal.xml" value="0.16" />
-        <entry key="..\:/Users/Bashir/AndroidStudioProjects/MyAndroidRepo/app/src/main/res/layout/one_goal_view.xml" value="0.16" />
-        <entry key="..\:/Users/Bashir/AndroidStudioProjects/MyAndroidRepo/app/src/main/res/menu/app_menu.xml" value="0.1" />
+        <entry key="..\:/Users/Bashir/AndroidStudioProjects/MyAndroidRepo/app/src/main/res/drawable/bottom_navigation_gradient.xml" value="0.14536082474226805" />
+        <entry key="..\:/Users/Bashir/AndroidStudioProjects/MyAndroidRepo/app/src/main/res/drawable/dialog_gradient.xml" value="0.19315068493150686" />
+        <entry key="..\:/Users/Bashir/AndroidStudioProjects/MyAndroidRepo/app/src/main/res/drawable/element_gradient.xml" value="0.65625" />
+        <entry key="..\:/Users/Bashir/AndroidStudioProjects/MyAndroidRepo/app/src/main/res/drawable/ic_baseline_add_24.xml" value="0.14536082474226805" />
+        <entry key="..\:/Users/Bashir/AndroidStudioProjects/MyAndroidRepo/app/src/main/res/drawable/ic_delete.xml" value="0.18703703703703703" />
+        <entry key="..\:/Users/Bashir/AndroidStudioProjects/MyAndroidRepo/app/src/main/res/drawable/list2.xml" value="0.1" />
+        <entry key="..\:/Users/Bashir/AndroidStudioProjects/MyAndroidRepo/app/src/main/res/drawable/zaglushka.xml" value="0.14536082474226805" />
+        <entry key="..\:/Users/Bashir/AndroidStudioProjects/MyAndroidRepo/app/src/main/res/layout/activity_main.xml" value="0.2" />
+        <entry key="..\:/Users/Bashir/AndroidStudioProjects/MyAndroidRepo/app/src/main/res/layout/create_element_dialog.xml" value="0.25" />
+        <entry key="..\:/Users/Bashir/AndroidStudioProjects/MyAndroidRepo/app/src/main/res/layout/element_view.xml" value="0.16" />
+        <entry key="..\:/Users/Bashir/AndroidStudioProjects/MyAndroidRepo/app/src/main/res/layout/fragment_all_goals.xml" value="0.153125" />
+        <entry key="..\:/Users/Bashir/AndroidStudioProjects/MyAndroidRepo/app/src/main/res/layout/fragment_first.xml" value="0.1361111111111111" />
+        <entry key="..\:/Users/Bashir/AndroidStudioProjects/MyAndroidRepo/app/src/main/res/layout/fragment_second.xml" value="0.14" />
+        <entry key="..\:/Users/Bashir/AndroidStudioProjects/MyAndroidRepo/app/src/main/res/layout/fragment_third.xml" value="0.1361111111111111" />
+        <entry key="..\:/Users/Bashir/AndroidStudioProjects/MyAndroidRepo/app/src/main/res/layout/slide.xml" value="0.1814814814814815" />
+        <entry key="..\:/Users/Bashir/AndroidStudioProjects/MyAndroidRepo/app/src/main/res/layout/slider.xml" value="0.1814814814814815" />
+        <entry key="..\:/Users/Bashir/AndroidStudioProjects/MyAndroidRepo/app/src/main/res/layout/view_pager_element.xml" value="0.1814814814814815" />
+        <entry key="..\:/Users/Bashir/AndroidStudioProjects/MyAndroidRepo/app/src/main/res/layout/view_pager_element_view.xml" value="0.1814814814814815" />
+        <entry key="..\:/Users/Bashir/AndroidStudioProjects/MyAndroidRepo/app/src/main/res/layout/view_pager_fragment.xml" value="0.1" />
+        <entry key="..\:/Users/Bashir/AndroidStudioProjects/MyAndroidRepo/app/src/main/res/menu/nav_menu.xml" value="0.1361111111111111" />
       </map>
     </option>
   </component>

@@ -17,11 +17,13 @@ import com.example.firstlesson.db.GoalsDatabase
 import com.example.firstlesson.entity.Goal
 import com.example.firstlesson.ui.fragment.AllGoalsFragment
 import com.google.android.material.snackbar.Snackbar
+import kotlinx.coroutines.*
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
     lateinit var goalsDatabase: GoalsDatabase
+    private var scope = CoroutineScope(SupervisorJob() + Dispatchers.Main)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -44,20 +46,29 @@ class MainActivity : AppCompatActivity() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         if (item.itemId == R.id.delete_all_goals_btn) {
-            if (goalsDatabase.goalsDao().getAll().isNotEmpty()) {
-                AlertDialog.Builder(this)
-                    .setMessage(R.string.delete_all_tasks_notification)
-                    .setPositiveButton("Да") { dialog, _ ->
-                        goalsDatabase.goalsDao().deleteAll()
-                        begin()
-                        dialog.dismiss()
-                    }
-                    .setNegativeButton("Нет") { dialog, _ ->
-                        dialog.dismiss()
-                    }
-                    .show()
-            } else Snackbar.make(binding.root, "У вас нет задач", 2000).show()
+            scope.launch {
+                if (goalsDatabase.goalsDao().getAll().isNotEmpty()) {
+                    AlertDialog.Builder(this@MainActivity)
+                        .setMessage(R.string.delete_all_tasks_notification)
+                        .setPositiveButton("Да") { dialog, _ ->
+                            scope.launch {
+                                goalsDatabase.goalsDao().deleteAll()
+                            }
+                            begin()
+                            dialog.dismiss()
+                        }
+                        .setNegativeButton("Нет") { dialog, _ ->
+                            dialog.dismiss()
+                        }
+                        .show()
+                } else Snackbar.make(binding.root, "У вас нет задач", 2000).show()
+            }
         }
         return true
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        scope.cancel()
     }
 }

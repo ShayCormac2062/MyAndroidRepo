@@ -1,7 +1,6 @@
 package com.example.firstlesson.ui.fragment
 
 import android.Manifest
-import android.app.DatePickerDialog
 import android.content.pm.PackageManager
 import android.icu.text.SimpleDateFormat
 import android.location.Location
@@ -17,6 +16,7 @@ import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.firstlesson.R
 import com.example.firstlesson.adapter.AllGoalsAdapter
 import com.example.firstlesson.databinding.FragmentAllGoalsBinding
 import com.example.firstlesson.databinding.FragmentCreateGoalBinding
@@ -28,6 +28,7 @@ import com.google.android.gms.location.LocationServices
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.timepicker.MaterialTimePicker
 import com.google.android.material.timepicker.TimeFormat
+import kotlinx.coroutines.*
 import java.util.*
 
 class AllGoalsFragment : Fragment() {
@@ -35,9 +36,11 @@ class AllGoalsFragment : Fragment() {
     private lateinit var binding: FragmentAllGoalsBinding
     private lateinit var goalsDatabase: GoalsDatabase
     private lateinit var locationClient: FusedLocationProviderClient
+    private lateinit var goals: ArrayList<Goal>
     private var calendar: Calendar? = null
     private var changingLongitude: Double? = null
     private var changingLatitude: Double? = null
+    private var scope = CoroutineScope(SupervisorJob() + Dispatchers.Main)
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -49,51 +52,38 @@ class AllGoalsFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         goalsDatabase = (requireActivity() as MainActivity).goalsDatabase
-        initRecyclerView()
+        scope.launch { initRecyclerView() }
         binding.addGoalBtn.setOnClickListener {
             showEditOrAddAlertDialog(null, 0)
         }
     }
 
-    private fun initRecyclerView() {
-        val goals = goalsDatabase.goalsDao().getAll() as ArrayList<Goal>
+    private suspend fun initRecyclerView() {
+        goals = withContext(scope.coroutineContext) {
+            (goalsDatabase.goalsDao().getAll() as ArrayList<Goal>)
+        }
         with(binding.allGoals) {
-            layoutManager = LinearLayoutManager(context).apply {
-                orientation = RecyclerView.VERTICAL
-            }
-            adapter = AllGoalsAdapter(goals).apply {
-                infoClickListener = {
-                    showGoalAlertDialog(it)
+                layoutManager = LinearLayoutManager(context).apply {
+                    orientation = RecyclerView.VERTICAL
                 }
-                deleteClickListener = {
-                    goalsDatabase.goalsDao().deleteGoal(it.id)
-                    initRecyclerView()
+                adapter = AllGoalsAdapter(goals).apply {
+                    infoClickListener = {
+                        showGoalAlertDialog(it)
+                    }
+                    deleteClickListener = {
+                        scope.launch {
+                            goalsDatabase.goalsDao().deleteGoal(it.id)
+                            initRecyclerView()
+                        }
+                    }
+                    submitList(goals)
                 }
-                submitList(goals)
             }
-        }
-        setupNoGoalsNotification()
-    }
-
-    private fun showDatePicker(bindingOfEditScreen: FragmentCreateGoalBinding) {
-        calendar = Calendar.getInstance()
-        calendar?.let { calendar ->
-            DatePickerDialog(
-                requireContext(),
-                { _, year, month, day ->
-                    calendar.set(Calendar.YEAR, year)
-                    calendar.set(Calendar.MONTH, month)
-                    calendar.set(Calendar.DAY_OF_MONTH, day)
-                },
-                calendar.get(Calendar.YEAR),
-                calendar.get(Calendar.MONTH),
-                calendar.get(Calendar.DAY_OF_MONTH)
-            )
-        }
-        showTimePicker(bindingOfEditScreen)
+            setupNoGoalsNotification()
     }
 
     private fun showTimePicker(bindingOfEditScreen: FragmentCreateGoalBinding) {
+        calendar = Calendar.getInstance()
         val datePicker = MaterialTimePicker.Builder()
             .setTimeFormat(TimeFormat.CLOCK_24H)
             .setHour(12)
@@ -143,10 +133,14 @@ class AllGoalsFragment : Fragment() {
 
     private fun setupNoGoalsNotification() {
         with(binding) {
-            noGoalsIcon.visibility =
-                if (goalsDatabase.goalsDao().getAll().isNotEmpty()) View.GONE else View.VISIBLE
-            noGoalsText.visibility =
-                if (goalsDatabase.goalsDao().getAll().isNotEmpty()) View.GONE else View.VISIBLE
+            pbLoading.visibility = View.GONE
+            tvLoading.visibility = View.GONE
+            scope.launch {
+                noGoalsIcon.visibility =
+                    if (goals.isNotEmpty()) View.GONE else View.VISIBLE
+                noGoalsText.visibility =
+                    if (goals.isNotEmpty()) View.GONE else View.VISIBLE
+            }
         }
     }
 
@@ -196,7 +190,7 @@ class AllGoalsFragment : Fragment() {
             }
         }
         bindingOfEditScreen.setupTime.setOnClickListener {
-            showDatePicker(bindingOfEditScreen)
+            showTimePicker(bindingOfEditScreen)
             needToChangeDate = true
         }
         bindingOfEditScreen.setupLocation.setOnClickListener {
@@ -207,14 +201,16 @@ class AllGoalsFragment : Fragment() {
                 1 -> {
                     with(goalsDatabase.goalsDao()) {
                         goal?.id?.let { it1 ->
-                            updateTitle(it1, bindingOfEditScreen.enterTitleText.text.toString())
-                            updateDescription(
-                                it1,
-                                bindingOfEditScreen.enterDescription.text.toString()
-                            )
-                            updateDate(it1, calendar?.time)
-                            updateLongitude(it1, changingLongitude)
-                            updateLatitude(it1, changingLatitude)
+                            scope.launch {
+                                if (bindingOfEditScreen.enterTitleText.text.toString() != goal.title) updateTitle(it1, bindingOfEditScreen.enterTitleText.text.toString())
+                                if (bindingOfEditScreen.enterDescription.text.toString() != goal.description) updateDescription(
+                                    it1,
+                                    bindingOfEditScreen.enterDescription.text.toString()
+                                )
+                                if (needToChangeDate) updateDate(it1, calendar?.time)
+                                if (changingLongitude != null) updateLongitude(it1, changingLongitude)
+                                if (changingLongitude != null) updateLatitude(it1, changingLatitude)
+                            }
                         }
                     }
                 }
@@ -227,7 +223,9 @@ class AllGoalsFragment : Fragment() {
                         changingLongitude,
                         changingLatitude
                     )
-                    goalsDatabase.goalsDao().add(newGoal)
+                    scope.launch {
+                        goalsDatabase.goalsDao().add(newGoal)
+                    }
                     Snackbar.make(
                         binding.root,
                         "Задача \"${newGoal.title}\" была успешно добавлена",
@@ -236,9 +234,13 @@ class AllGoalsFragment : Fragment() {
                 }
             }
             needToChangeDate = false
+            calendar = null
             changingLatitude = null
             changingLongitude = null
-            initRecyclerView()
+            parentFragmentManager
+                .beginTransaction()
+                .replace(R.id.container, AllGoalsFragment())
+                .commit()
             alert?.dismiss()
         }
         bindingOfEditScreen.noBtn.setOnClickListener {
@@ -269,6 +271,11 @@ class AllGoalsFragment : Fragment() {
                     .show()
             }
         }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        scope.cancel()
     }
 
 }

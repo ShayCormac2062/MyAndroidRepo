@@ -5,4 +5,5 @@
     <string name="enter_description">Придумайте описание задачи…</string>
     <string name="delete_all_tasks_notification">Вы точно хотите удалить все задачи?</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="loading">Загрузка...</string>
 </resources>
